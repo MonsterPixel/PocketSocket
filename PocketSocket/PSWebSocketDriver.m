@@ -89,10 +89,12 @@ typedef NS_ENUM(NSInteger, PSWebSocketDriverState) {
     
     if(headers[@"Sec-WebSocket-Key"] &&
        [version containsObject:@"13"] &&
-       [connection containsObject:@"upgrade"] &&
        [upgrade containsObject:@"websocket"] &&
        [request.HTTPMethod.lowercaseString isEqualToString:@"get"] &&
-       request.HTTPBody.length == 0) {
+       request.HTTPBody.length == 0 &&
+        ([connection containsObject:@"upgrade"] || [connection containsObject:@"keep-alive, upgrade"]))
+        
+    {
         return YES;
     }
     return NO;
