@@ -258,8 +258,8 @@ void PSWebSocketServerAcceptCallback(CFSocketRef s, CFSocketCallBackType type, C
         
         // enable SSL
         if(_secure) {
-//CFReadStreamSetProperty(readStream, kCFStreamPropertySocketSecurityLevel, kCFStreamSocketSecurityLevelNegotiatedSSL);
-            //CFWriteStreamSetProperty(writeStream, kCFStreamPropertySocketSecurityLevel, kCFStreamSocketSecurityLevelNegotiatedSSL);
+            CFReadStreamSetProperty(readStream, kCFStreamPropertySocketSecurityLevel, kCFStreamSocketSecurityLevelNegotiatedSSL);
+            CFWriteStreamSetProperty(writeStream, kCFStreamPropertySocketSecurityLevel, kCFStreamSocketSecurityLevelNegotiatedSSL);
             
             NSMutableDictionary *opts = [NSMutableDictionary dictionary];
             
@@ -269,10 +269,10 @@ void PSWebSocketServerAcceptCallback(CFSocketRef s, CFSocketCallBackType type, C
             
             CFReadStreamSetProperty(readStream, kCFStreamPropertySSLSettings, (__bridge CFDictionaryRef)opts);
             CFWriteStreamSetProperty(writeStream, kCFStreamPropertySSLSettings, (__bridge CFDictionaryRef)opts);
-
-           // SSLContextRef context = (SSLContextRef)CFWriteStreamCopyProperty(writeStream, kCFStreamPropertySSLContext);
+            
+            // SSLContextRef context = (SSLContextRef)CFWriteStreamCopyProperty(writeStream, kCFStreamPropertySSLContext);
             //SSLSetClientSideAuthenticate(context, kTryAuthenticate);
-           // CFRelease(context);
+            // CFRelease(context);
         }
         
         // create connection
